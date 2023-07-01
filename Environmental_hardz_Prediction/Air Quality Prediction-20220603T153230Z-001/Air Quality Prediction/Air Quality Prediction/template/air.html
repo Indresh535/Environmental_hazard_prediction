@@ -1,0 +1,451 @@
+
+<!DOCTYPE html>
+<html >
+
+<head>
+
+<style>
+  body{
+    margin: 0;
+  }
+  header
+  {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px 100px;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+  }
+  header .logo
+  {
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .toggle
+  {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: url(https://i.ibb.co/HrfVRcx/menu.png);
+    background-repeat: no-repeat;
+    background-size: 30px;
+    cursor: pointer;
+    z-index: 200;
+    left: 95%;
+    top: 7%;
+  }
+  
+  .toggle.active
+  {
+    background: url(https://i.ibb.co/rt3HybH/close.png);
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position: center;
+    cursor: pointer;
+    z-index: 200;
+  }
+
+  .showcase
+  {
+    position: absolute;
+    width: 100%;
+    min-height: 100vh;
+    padding: 100px;
+    justify-content: space-between;
+    background: #111;
+    transition: 0.5s;
+    z-index: 2;
+  }
+  
+ .login{
+  position: absolute;
+ }
+  
+  .showcase video
+  {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    z-index: -1;
+  }
+
+
+ 
+
+  .overlay
+  {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #93cee9;
+    mix-blend-mode: overlay;
+    z-index: -1;
+  }
+
+
+label:after {
+  content: ": ";
+ 
+}
+
+label {  
+  color: white;
+  font-weight: bold;
+  display: inline-block;
+  width: 100px;
+  text-align:center;
+  z-index: 2;
+}
+
+input {  
+  z-index: 2;
+}
+
+input[type="text"]{
+  width: 50px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+}
+
+form button[type='submit']  {
+    display: inline-block;
+    width: 70px;
+
+}
+    .menu
+    {
+      position: absolute;  
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 15%;
+      display: flex;
+      background: linear-gradient(to bottom right, #56f156 10%, #49dfa3 100%);
+      color: #93cee9;      
+      z-index: 2;
+      display: block;
+    }
+    .menu.active
+    {
+      display: none;
+    }
+    .menu ul
+    {
+      position: relative;
+    }
+    
+    .menu ul li
+    {
+      list-style: none;
+      font-family: monospace;
+      font-weight: 800;
+      float: left;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      padding-right: 60px;
+    }
+    
+    .menu ul li a
+    {
+      text-decoration: none;
+      font-size: 24px;
+      color: #111;
+    }
+    .menu ul li a:hover
+    {
+      color: #03a9f4; 
+    }
+
+
+    h4.title {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+ 
+.smbg{
+  background: rgba(255, 255, 255, 0.644);
+  width: 120px;
+  padding-top:  5px;
+  border-radius: 5px; 
+}
+
+.blocks{
+  padding: 10px;
+  display:inline-block
+}
+
+img{
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+}
+</style> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<!-- <body background="{{ url_for('static', filename='air quality image.JPG') }}"></body> -->
+<body>
+  <div class="toggle"></div>
+  <section class="showcase">
+    <video src="{{ url_for('static', filename='nature.mp4') }}" type="video/mp4" muted loop autoplay></video>
+    
+      <h2 class="logo">AQI Prediction</h2>     
+    
+    <div class="overlay"></div>
+ <div class="login"  align="center" >
+	<b><font  style="font-family:Algerian; font-size:larger;font-weight:22px"><h1 >Air Quality Prediction</h1></font></b>
+
+    <form action="{{ url_for('predict')}}"method="post">
+<div class="container">
+  <div class="">
+    <div class="blocks">
+    <div class="w3-quarter smbg">
+      <div class="w3-container w3-white w3-hover-shadow w3-border-red w3-bottombar w3-padding-4">
+        <div class="w3-left"><img src="/static/temperature.gif"></div>
+        <div class="w3-right">
+          <h3>
+            <input type="text" name="Temperature" id="Temperature" placeholder="" value="52" required="required"/></h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Temperature</h4>        
+        <span style="background: red">_______________</span>      
+      </div>
+    </div>  
+    </div>  
+    <div class="blocks">
+    <div class="w3-quarter smbg">
+      <div class="w3-container w3-white w3-hover-shadow w3-border-red w3-bottombar w3-padding-4">
+        <div class="w3-left"><img height="50px" width="50px" src="/static/humidty.gif"></div>
+        <div class="w3-right">
+          <h3>
+            <input type="text" name="Humidity" id="Humidity" placeholder="" value="52" required="required"/>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Humidity</h4>
+        <span style="background: green">_______________</span>   
+      </div>
+    </div>
+    </div> 
+    <div class="blocks"> 
+    <div class="w3-quarter smbg">
+      <div class="w3-container w3-white w3-hover-shadow w3-border-red w3-bottombar w3-padding-4">
+        <div class="w3-left"><img height="50px" width="50px" src="/static/wind.gif"></div>
+        <div class="w3-right">
+          <h3>
+            <input type="text" name="Wind Speed" id="Wind Speed" placeholder="" value="52" required="required"/>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Wind Speed</h4>
+        <span style="background: blue">_______________</span>   
+      </div>
+    </div> 
+    </div> 
+    <div class="blocks"> 
+    <div class="w3-quarter smbg">
+      <div class="w3-container w3-white w3-hover-shadow w3-border-red w3-bottombar w3-padding-4">
+        <div class="w3-left"><img height="50px" width="50px" src="/static/visibility.gif"></div>
+        <div class="w3-right">
+          <h3>
+            <input type="text" name="Visibility" id="Visibility" placeholder="" value="52" required="required"/>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Visibility</h4>
+        <span style="background: rgb(142, 198, 212)">_______________</span>   
+      </div>
+    </div>
+    </div>
+    <div class="blocks"> 
+    <div class="w3-quarter smbg">
+      <div class="w3-container w3-white w3-hover-shadow w3-border-red w3-bottombar w3-padding-4">
+        <div class="w3-left"><img height="50px" width="50px" src="/static/pessure.gif"></div>
+        <div class="w3-right">
+          <h3>
+            <input type="text" name="Pressure" id="Pressure" placeholder="" value="52" required="required"/>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Pressure</h4>
+        <span style="background: rgb(122, 204, 236)">_______________</span>   
+      </div>
+    </div>
+    </div><br>
+    <div class="blocks"> 
+    <div class="w3-quarter smbg">
+      <div class="w3-container w3-white w3-hover-shadow w3-border-red w3-bottombar w3-padding-4">
+        <div class="w3-left"><img height="50px" width="50px" src="/static/so2.jpg"></div>
+        <div class="w3-right">
+          <h3>
+            <input type="text" name="so2" id="so2" placeholder="" value="52" required="required"/>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>SO2</h4>
+        <span style="background: rgb(245, 205, 26)">_______________</span>   
+      </div>
+    </div>
+    </div>
+    <div class="blocks"> 
+    <div class="w3-quarter smbg">
+      <div class="w3-container w3-white w3-hover-shadow w3-border-red w3-bottombar w3-padding-4">
+        <div class="w3-left"><img height="50px" width="50px" src="/static/no2.png"></div>
+        <div class="w3-right">
+          <h3>
+            <input type="text" name="no2" id="no2" placeholder="" value="52" required="required"/>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>NO2</h4>
+        <span style="background: rgb(89, 138, 230)">_______________</span>   
+      </div>
+    </div>
+    </div>
+    <div class="blocks"> 
+    <div class="w3-quarter smbg">
+      <div class="w3-container w3-white w3-hover-shadow w3-border-red w3-bottombar w3-padding-4">
+        <div class="w3-left"><img height="50px" width="50px" src="/static/rainfall.gif"></div>
+        <div class="w3-right">
+          <h3>
+            <input type="text" name="Rainfall" id="Rainfall" placeholder="" value="52" required="required"/>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>RainFall</h4>
+        <span style="background: rgb(63, 186, 207)">_______________</span>   
+      </div>
+    </div>
+    </div>
+    <div class="blocks"> 
+    <div class="w3-quarter smbg">
+      <div class="w3-container w3-white w3-hover-shadow w3-border-red w3-bottombar w3-padding-4">
+        <div class="w3-left"><img height="50px" width="50px" src="/static/pm10.png"></div>
+        <div class="w3-right">
+          <h3>
+            <input type="text" name="PM10" id="PM10" placeholder="" value="52" required="required"/>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>PM10</h4>
+        <span style="background: rgb(0, 247, 255)">_______________</span>   
+      </div>
+    </div>
+    </div>  
+    <div class="blocks"> 
+    <div class="w3-quarter smbg">
+      <div class="w3-container w3-white w3-hover-shadow w3-border-red w3-bottombar w3-padding-4">
+        <div class="w3-left"><img height="50px" width="50px" src="/static/pm25.jpg"></div>
+        <div class="w3-right">
+          <h3>
+            <input type="text" name="PM25" id="PM25" placeholder="" value="52" required="required"/>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>PM25</h4>
+        <span style="background: rgb(247, 120, 236)">_______________</span>   
+      </div>
+      </div>
+    </div>	
+    	<br>
+    	
+       <button type="submit"  class="btn btn-primary btn-block btn-large">Predict</button>
+      </div>
+    </form>
+
+   <br>
+   <br>
+     <b><font  style="color:white" "font-family:verdana" size="5">{{ prediction_text}}</font></b>
+   <br>
+     <b><font  style="color:white" "font-family:verdana" size="5">{{ prediction_text1}}</font></b>	
+ </div>
+</section>
+
+<div class="menu">
+  <ul>
+    <li><a href="{{url_for('home')}}">Home</a></li>
+    <li><a href="http://127.0.0.1:8000/">Forest Fire Predicton</a></li>
+    <li><a href="{{url_for('rain')}}">Rain Prediction</a></li>
+    <li><a href="{{url_for('production')}}">Air Quality Index</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+</div>
+
+<!-- <div class="container">
+	<div>
+		<h4 class="title">Underlined Inputs</h4>
+		<form>
+			<div class="omrs-input-group">
+				<label class="omrs-input-underlined">
+				  <input required>
+				  <span class="omrs-input-label">Normal</span>
+					<span class="omrs-input-helper">Helper Text</span>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><circle cx="15.5" cy="9.5" r="1.5"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-5-6c.78 2.34 2.72 4 5 4s4.22-1.66 5-4H7z"/></svg>
+				</label>
+			</div>
+			<div class="omrs-input-group">
+				<label class="omrs-input-underlined omrs-input-danger">
+				  <input required>
+				  <span class="omrs-input-label">Danger</span>
+					<span class="omrs-input-helper">Helper Text</span>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><circle cx="15.5" cy="9.5" r="1.5"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-5-6c.78 2.34 2.72 4 5 4s4.22-1.66 5-4H7z"/></svg>
+				</label>
+			</div>
+			<div class="omrs-input-group">
+				<label class="omrs-input-underlined">
+				  <input required disabled>
+				  <span class="omrs-input-label">Danger</span>
+					<span class="omrs-input-helper">Helper Text</span>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><circle cx="15.5" cy="9.5" r="1.5"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-5-6c.78 2.34 2.72 4 5 4s4.22-1.66 5-4H7z"/></svg>
+				</label>
+			</div>
+		</form>
+	</div>
+
+	<div>
+		<h4 class="title">Filled Inputs</h4>
+			<div class="omrs-input-group">
+				<label class="omrs-input-filled">
+				  <input required>
+				  <span class="omrs-input-label">Normal</span>
+					<span class="omrs-input-helper">Helper Text</span>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><circle cx="15.5" cy="9.5" r="1.5"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-5-6c.78 2.34 2.72 4 5 4s4.22-1.66 5-4H7z"/></svg>
+				</label>
+			</div>
+			<div class="omrs-input-group">
+				<label class="omrs-input-filled omrs-input-danger">
+				  <input required>
+				  <span class="omrs-input-label">Danger</span>
+					<span class="omrs-input-helper">Helper Text</span>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><circle cx="15.5" cy="9.5" r="1.5"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-5-6c.78 2.34 2.72 4 5 4s4.22-1.66 5-4H7z"/></svg>
+				</label>
+			</div>
+			<div class="omrs-input-group">
+				<label class="omrs-input-underlined">
+				  <input required disabled>
+				  <span class="omrs-input-label">Danger</span>
+					<span class="omrs-input-helper">Helper Text</span>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><circle cx="15.5" cy="9.5" r="1.5"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-5-6c.78 2.34 2.72 4 5 4s4.22-1.66 5-4H7z"/></svg>
+				</label>
+			</div>
+	</div>
+
+
+</div> -->
+</body>
+<script>
+  const menuToggle = document.querySelector('.toggle');
+  const showcase = document.querySelector('.menu');
+
+  menuToggle.addEventListener('click', () => {
+    menuToggle.classList.toggle('active');
+    showcase.classList.toggle('active');
+  })
+</script>
+</html>

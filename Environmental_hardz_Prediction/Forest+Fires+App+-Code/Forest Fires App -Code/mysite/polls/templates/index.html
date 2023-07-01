@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forest Fire</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    
+</head>
+<style>
+    body{
+        margin: 0;
+      }
+
+      span{
+        color: #fff;
+      }
+
+      header
+      {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 40px 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 2;
+      }
+      header .logo
+      {
+        color: #fff;
+        text-transform: uppercase;
+        cursor: pointer;
+        z-index: 2;
+      }
+    
+      .toggle
+      {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        background: url(https://i.ibb.co/HrfVRcx/menu.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-size: 30px;
+        cursor: pointer;
+        z-index: 200;
+        left: 95%;
+        top: 7%;
+      }
+      
+      .toggle.active
+      {
+        background: url(https://i.ibb.co/rt3HybH/close.png);
+        background-repeat: no-repeat;
+        background-size: 25px;
+        background-position: center;
+        cursor: pointer;
+        z-index: 200;
+      }
+    
+      .showcase
+      {
+        position: absolute;
+        right: 0;
+        width: 100%;
+        min-height: 100vh;
+        padding: 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: url('https://i.pinimg.com/originals/6a/f5/5c/6af55c8eab74182480f93eec4e3b0ed4.gif');
+        transition: 0.5s;
+        z-index: 2;
+      }
+      
+     
+      
+      .showcase video
+      {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.8;
+        z-index: -1;
+      }
+    
+    
+      .overlay
+      {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #93cee9;
+        mix-blend-mode: overlay;
+        z-index: -1;
+      }
+    
+    
+    label:after {
+      content: ": ";
+     
+    }
+    
+    label {  
+      color: white;
+      font-weight: bold;
+      display: inline-block;
+      width: 100px;
+      text-align:center;
+      z-index: 2;
+    }
+    
+    input {  
+      z-index: 2;
+      background-color: rgba(214, 26, 26, 0.808);
+    }
+    
+    form button[type='submit']  {
+        display: inline-block;
+        width: 70px;
+    
+    }
+        .menu
+        {
+          position: absolute;  
+          top: 0;
+          right: 0;
+          width: 100%;
+          height: 15%;
+          display: flex;
+          background: linear-gradient(to bottom right, #56f156 10%, #49dfa3 100%);
+          color: #93cee9;      
+          z-index: 2;
+          display: block;
+        }
+        .menu.active
+        {
+          display: none;
+        }
+        .menu ul
+        {
+          position: relative;
+        }
+        
+        .menu ul li
+        {
+          list-style: none;
+          font-family: monospace;
+          font-weight: 800;
+          float: left;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+          padding-right: 60px;
+        }
+        
+        .menu ul li a
+        {
+          text-decoration: none;
+          font-size: 24px;
+          color: #111;
+        }
+        .menu ul li a:hover
+        {
+          color: #03a9f4; 
+        }
+    
+        h3{
+          font-family: 'Times New Roman', Times, serif;
+          color: white;
+          font-weight: bold;
+        }
+</style>
+<body>
+    <div class="toggle"></div>
+  <section class="showcase">
+    <video src="./pexels-pablo-osorio-5679686.mp4" type="video/mp4" muted loop autoplay></video>
+    
+          
+    
+    <div class="overlay"></div>
+    <form method="post" action="" enctype="multipart/form-data">
+      <h3 class="logo">ForestFire Prediction</h3> 
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-6 my-2">
+<div class="input-group mb-3">
+        <span class="input-group-text">Latitude of the place </span><br>
+        <input name="lat" type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+    </div></div>
+    <div class="col-md-6 my-2">
+    <div class="input-group mb-3 ">
+        <span class="input-group-text">Longitude of the place</span><br>
+        <input name="long" type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+    </div></div>
+    <div class="col-md-6 my-2">
+    <div class="input-group mb-3">
+        <span class="input-group-text">Brightness/Intensity (300 - 600)</span><br>
+        <input name="bright" type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+    </div>
+    </div>
+
+    <h3>Was it at Night time or not: </h3>
+    <div class="col-md-6 my-2">
+    <select name="dn" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        <option selected>Open this select menu</option>
+        <option value="0">Yes</option>
+        <option value="1">No</option>
+    </select>
+  </div>
+    <div class="col-md-6 my-2">
+    <div class="input-group mb-3">
+        <span class="input-group-text">frp (267 - 401)</span><br>
+        <input name="frp" type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+    </div>
+    </div>
+    <br>
+
+    <h3>Type of Forest Fire: </h3>
+    <div class="col-md-6 my-2">
+    <select name="type_fire" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        <option selected>Open this select menu</option>
+        <option value="0"> Type 0</option>
+        <option value="2">Type 2</option>
+        <option value="3">Type 3</option>
+    </select>
+    </div>
+
+    <h3>Scan level: </h3>
+    <div class="col-md-6 my-2">
+    <select name="scan" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        <option selected>Open this select menu</option>
+        <option value="1">[0 - 1)</option>
+        <option value="2">[1 - 2)</option>
+        <option value="3">[2 - 3)</option>
+        <option value="4">[3 - 4)</option>
+        <option value="5">[4 - 5)</option>
+    </select>
+    </div>
+    <div class="col-md-6 my-2">
+    <div class="input-group mb-3">
+        <span class="input-group-text">Year the fire took place</span><br>
+        <input name="year" type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+    </div>
+    </div>
+    <div class="col-md-6 my-2">
+    <select name="month" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        <option selected>Open this select menu</option>
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="11">December</option>
+    </select>
+    </div>
+    <div class="col-md-6 my-2">
+    <div class="input-group mb-3">
+        <span class="input-group-text">Date the fire took place</span><br>
+        <input name="date" type="date" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+    </div>
+    </div>
+        </div>
+    <div class="col-md-6">
+        <button class="btn btn-primary" type="submit" name="pred_button" value="Save&Next">Predict</button>
+    </div>
+</form>
+
+{% if result %}
+    <h3>Confidence score for the forest fire is : {{ result }}</h3>
+{% endif %}
+  </section>
+  <div class="menu">
+    <ul>
+      <li><a href="http://127.0.0.1:5000/">Home</a></li>
+      <li><a href="#">Forest Fire Predicton</a></li>
+      <li><a href="http://127.0.0.1:5000/rain">Rain Prediction</a></li>
+      <li><a href="http://127.0.0.1:5000/AIQPrediction">Air Quality Index</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+  </div>
+</body>
+
+<script>
+    const menuToggle = document.querySelector('.toggle');
+    const showcase = document.querySelector('.menu');
+  
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      showcase.classList.toggle('active');
+    })
+  </script>
+</html>
